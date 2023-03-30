@@ -1,4 +1,5 @@
 // main.dart
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
@@ -9,20 +10,24 @@ import 'package:flutter_chat_gpt/services/firestore_service.dart';
 import 'package:flutter_chat_gpt/services/order_service.dart';
 import 'package:flutter_chat_gpt/services/stripe_service.dart';
 import 'package:flutter_chat_gpt/services/user_service.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 
 import '../firebase_options.dart';
 
 void main() async {
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+        name: "firebaseUiAuth");
+  }
+
   //this is for demo propose only dont put any api keys in your code like this
   //chek
-  Stripe.publishableKey =
-      "pk_test_51LksPcLqINE1zk2lGR5mzJ2Ui9LXdvG1M9o7cF3gvNhLQxBAtomO1r6iAj3aUOKoEP1dekqK5WYb740tLNZxwaJT00YxQ9HQhH";
+  Stripe.publishableKey = dotenv.env["stripeApiKey"] ?? "";
 
   // if (FirebaseAuth.instance.currentUser == null) {
   //   await FirebaseAuth.instance.signInAnonymously();

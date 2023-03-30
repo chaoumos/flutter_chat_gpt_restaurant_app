@@ -22,8 +22,7 @@ migrate_working_dir/
 #.vscode/
 
 # Flutter/Dart/Pub related
-/lib/firebase_options.dart
-firebase_options.d.envart
+
 
 **/doc/api/
 **/ios/Flutter/.last_build_id
@@ -46,4 +45,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+**/google-services.json
+
+*.json
+
+
+
 .env

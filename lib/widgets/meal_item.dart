@@ -72,12 +72,13 @@ class MealItem extends StatelessWidget {
                 ),
                 Positioned(
                   bottom: 20,
-                  right: 10,
+                  left: 0,
                   child: Container(
+                    height: 58,
                     width: 300,
                     color: Colors.black54,
                     padding:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
                     child: Text(
                       meal.name,
                       style: const TextStyle(
@@ -90,8 +91,8 @@ class MealItem extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                    bottom: 2,
-                    right: 10,
+                    bottom: 20,
+                    left: 10,
                     child: RatingBar.builder(
                       itemSize: 20,
                       initialRating: meal.ratings,
@@ -116,7 +117,7 @@ class MealItem extends StatelessWidget {
                   Column(
                     children: <Widget>[
                       IconButton(
-                        icon: const Icon(Icons.add_shopping_cart),
+                        icon: const Icon(Icons.add_shopping_cart_outlined),
                         onPressed: () => cartService
                             .addToCart(CartItem(meal: meal, quantity: 1)),
                       ),

@@ -1,4 +1,7 @@
+import 'dart:developer' as dev;
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_gpt/models/user.dart';
 import 'package:get/get.dart';
@@ -8,9 +11,6 @@ import 'firestore_service.dart';
 class UserService extends GetxService {
   late TextEditingController adressController;
 
-  final formKey = GlobalKey<FormState>();
-  final editForm = false.obs;
-
   @override
   void onClose() {
     adressController.dispose();
@@ -19,7 +19,7 @@ class UserService extends GetxService {
 
   final authUser = Rx<User?>(null);
   final firebase = FirebaseAuth.instance;
-  var user = Rx<UserProfile?>(null);
+  final user = Rx<UserProfile?>(null);
   final _firestoreService = Get.find<FirestoreService>();
 
   @override
@@ -38,12 +38,16 @@ class UserService extends GetxService {
     });
 // init controllers
 
-    adressController = TextEditingController(text: user.value?.address ?? "");
+    dev.log(authUser.value.toString(), name: 'authUser.value.toString()');
+
     super.onInit();
   }
 
 //get db userProfile
   Future getUserProfile() async {
+    await authUser.value?.reload();
+    authUser.value = firebase.currentUser;
+    authUser.refresh();
     if (authUser.value == null) {
       //in case of logout
       user.value = null;
@@ -57,21 +61,40 @@ class UserService extends GetxService {
     if (authUser.value == null) {
       return;
     }
-    if (formKey.currentState!.validate()) {
-      user.value!.address = adressController.text;
 
-      await authUser.value?.reload();
-      await _firestoreService.upDateUserProfile(
-        authUser.value!,
-        user.value!,
-      );
-      authUser.refresh();
-      user.refresh();
-    }
+    await authUser.value?.reload();
+    await _firestoreService.upDateUserProfile(authUser.value!, user.value);
+    authUser.refresh();
+    user.refresh();
   }
 
   Future<void> logout() async {
     await firebase.signOut();
     user.value = null;
+  }
+
+  void showProfileScreenDialog() {
+    Get.dialog(
+      useSafeArea: true,
+      Padding(
+        padding: const EdgeInsets.fromLTRB(8, 20, 8, 10),
+        child: Card(
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(32.0),
+          ),
+          child: ProfileScreen(
+            appBar: AppBar(),
+            actions: [
+              SignedOutAction((context) {
+                Get.back();
+              }),
+            ],
+          ),
+        ),
+      ),
+    )
+        //updating the user details maybe changed in flutterfire profile screen
+        .then((value) => getUserProfile());
   }
 }

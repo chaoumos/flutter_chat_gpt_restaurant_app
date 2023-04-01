@@ -1,34 +1,37 @@
+import 'adress.dart';
+
 class UserProfile {
   String id;
-
-  String? address;
+  Adress? adress;
 
   UserProfile({
     required this.id,
-    this.address,
+    this.adress,
   });
 
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
       id: json['id'],
-      address: json['address'] ?? "",
+      adress: json['adress'] != null
+          ? Adress.fromJson(json['adress'] as Map<String, dynamic>)
+          : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'address': address,
+      'adress': adress?.toJson(),
     };
   }
 
   UserProfile copyWith({
     String? id,
-    String? address,
+    Adress? adress,
   }) {
     return UserProfile(
       id: id ?? this.id,
-      address: address ?? this.address,
+      adress: adress ?? this.adress,
     );
   }
 }

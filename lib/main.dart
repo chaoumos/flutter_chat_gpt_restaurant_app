@@ -61,9 +61,13 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       getPages: RestaurantOrderingRoutes.routes,
       theme: ThemeData(
-        colorSchemeSeed: Colors.purple,
+        colorSchemeSeed: Colors.deepPurple,
         useMaterial3: true,
         // fontFamily: 'georgia',
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10), gapPadding: 10),
+        ),
       ),
     );
   }

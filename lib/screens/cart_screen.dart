@@ -19,7 +19,13 @@ class CartScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const SizedBox(height: 10),
+          Obx(() => controller.cart.value.cartItems.isEmpty
+              ? const Expanded(
+                  child: Center(
+                    child: Text('No items in the cart'),
+                  ),
+                )
+              : const SizedBox.shrink()),
           Expanded(
               child: Obx(
             () => ListView.builder(
@@ -44,10 +50,14 @@ class CartScreen extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  TextButton(
+                  FilledButton(
+                    statesController: MaterialStatesController(),
                     child: const Text('ORDER NOW'),
                     onPressed: () {
-                      Get.toNamed('/order');
+                      if (controller.cart.value.totalAmount <= 0) {
+                        return;
+                      }
+                      Get.toNamed('/order-summary');
                     },
                   ),
                 ],

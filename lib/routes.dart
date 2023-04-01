@@ -2,7 +2,7 @@
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_gpt/layouts/main_layout.dart';
-import 'package:flutter_chat_gpt/screens/payment_screen_demo.dart';
+import 'package:flutter_chat_gpt/screens/order_summary.dart';
 import 'package:get/route_manager.dart';
 
 import 'screens/meal_detail_screen.dart';
@@ -21,10 +21,10 @@ class RestaurantOrderingRoutes {
             )),
     GetPage(
         transition: Transition.fadeIn,
-        name: '/order',
+        name: '/order-summary',
         page: () =>
             //  PaymentScreen()
-            const PaymentScreen()),
+            const OrderSummary()),
     GetPage(
       transition: Transition.fadeIn,
       name: '/sign-in',

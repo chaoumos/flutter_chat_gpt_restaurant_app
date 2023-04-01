@@ -1,5 +1,3 @@
-import 'dart:developer' as dev;
-
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_gpt/layouts/main_layout_controller.dart';
@@ -15,12 +13,12 @@ class MainLayout extends StatelessWidget {
     final c = Get.put(MainLayoutController());
 
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.print),
-          onPressed: () {
-            dev.log(cartService.cart.value.toJson().toString(), name: "cart");
-          },
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   child: const Icon(Icons.print),
+        //   onPressed: () {
+        //     dev.log(cartService.cart.value.toJson().toString(), name: "cart");
+        //   },
+        // ),
         //temp action on firestore to batch write dummy data with floating button
         // floatingActionButton: FloatingActionButton.extended(
         //   label: Text("temp firestore action"),

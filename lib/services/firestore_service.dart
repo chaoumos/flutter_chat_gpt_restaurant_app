@@ -154,9 +154,12 @@ class FirestoreService extends GetxService {
       User user, UserProfile? userProfile) async {
     dev.log("update user  ...");
     DocumentReference userDocRef = firestore.collection('users').doc(user.uid);
+    dev.log(user.displayName ?? "no display name");
+    dev.log(
+        '### userProfile ${userProfile?.adress?.toJson().values.join(" ")}');
     var data = {
       "id": user.uid,
-      "address": userProfile?.address,
+      "adress": userProfile?.adress?.toJson(),
     };
     await userDocRef.update(data);
     return UserProfile.fromJson(data);

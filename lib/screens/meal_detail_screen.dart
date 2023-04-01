@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_gpt/models/cart_item.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+
 import '../models/meal.dart';
 import '../services/cart_service.dart';
 import 'cart_screen.dart';
@@ -99,7 +100,7 @@ class MealDetailScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               child: Text(
                 textAlign: TextAlign.start,
-                "rissoler la viande dans le beurre ou la crème à rôtir. Ajouter les oignons, l'ail et tous les légumes, étuver. Incorporer le concentré de tomates, mouiller avec le vin ou la bouillon, laisser mijoter un instant, assaisonner et ajouter les herbes. Laisser mijoter env. 45 min à couvert.",
+                meal.description,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ),
@@ -187,37 +188,3 @@ class MealDetailScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-//                 Positioned(
-//                   bottom: 20,
-//                   right: 10,
-//                   child: Container(
-//                     width: 300,
-//                     color: Colors.black54,
-//                     padding:
-//                         const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-//                     child: Text(
-//                       meal.name,
-//                       style: const TextStyle(
-//                         fontSize: 26,
-//                         color: Colors.white,
-//                       ),
-//                       softWrap: true,
-//                       overflow: TextOverflow.fade,
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.all(20),
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                 children: [
-//                   Row(
-
-
-
-        

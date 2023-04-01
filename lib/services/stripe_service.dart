@@ -4,6 +4,7 @@ import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_gpt/models/payment.dart';
 import 'package:flutter_stripe/flutter_stripe.dart' as stripe;
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,6 +13,7 @@ class StripeService extends GetxService {
   final isLoading = false.obs;
 
   Future<PaymentStatus> makePayment(double amount, currency) async {
+    isLoading.value = true;
     paymentIntent = await createPaymentIntent(amount, currency);
     //Payment Sheet
     return await stripe.Stripe.instance
@@ -54,8 +56,7 @@ class StripeService extends GetxService {
       var response = await http.post(
         Uri.parse('https://api.stripe.com/v1/payment_intents'),
         headers: {
-          'Authorization':
-              'Bearer sk_test_51LksPcLqINE1zk2lwsEqrQQ7EKkbHaN5glS2TZH6OXjzehyfmGWB2HIAAj7IZjA1HmjIZzgtbLmw5YwRU9MmA5NH00yBtcmIW1',
+          'Authorization': 'Bearer ${Stripe.publishableKey}',
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: body,
@@ -69,8 +70,8 @@ class StripeService extends GetxService {
     }
   }
 
+  //remove de decimal point and replace it with empty string equivalent to *100 then converting to int then to string
   String calculateAmount(double amount) {
-    //remove de decimal point and replace it with empty string equivalent to *100 then converting to int then to string
     return amount.toStringAsFixed(2).replaceAll(".", "");
   }
 }

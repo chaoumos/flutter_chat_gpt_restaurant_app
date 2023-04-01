@@ -3,6 +3,7 @@ class Meal {
   final String name;
   final String imageUrl;
   final String category;
+  final String description;
   final double price;
   final double discount;
   final double ratings;
@@ -15,6 +16,7 @@ class Meal {
     required this.price,
     required this.discount,
     required this.ratings,
+    required this.description,
   });
 
   Map<String, dynamic> toJson() {
@@ -24,6 +26,7 @@ class Meal {
       'imageUrl': imageUrl,
       'category': category,
       'price': price,
+      'description': description,
       'discount': discount,
       'ratings': ratings,
     };
@@ -31,10 +34,11 @@ class Meal {
 
   factory Meal.fromJson(Map<String, dynamic> json) {
     return Meal(
-      id: json['id'],
-      name: json['name'],
-      imageUrl: json['imageUrl'],
-      category: json['category'],
+      id: json['id'] ?? '',
+      name: json['name'] ?? '',
+      description: json['description'] ?? '',
+      imageUrl: json['imageUrl'] ?? '',
+      category: json['category'] ?? '',
       price: json.containsKey('price') ? json['price'].toDouble() : 0.0,
       discount:
           json.containsKey('discount') ? json['discount'].toDouble() : 0.0,

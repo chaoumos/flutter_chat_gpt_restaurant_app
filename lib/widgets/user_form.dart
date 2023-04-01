@@ -9,7 +9,7 @@ class UserForm extends StatefulWidget {
 
 class _UserFormState extends State<UserForm> {
   final _formKey = GlobalKey<FormState>();
-  late String _name, _phoneNumber, _address;
+  late String _name, _phoneNumber, _adress;
 
   @override
   Widget build(BuildContext context) {
@@ -54,16 +54,16 @@ class _UserFormState extends State<UserForm> {
               ),
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'Address',
+                  labelText: 'Adress',
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please enter your address';
+                    return 'Please enter your adress';
                   }
                   return null;
                 },
                 onSaved: (value) {
-                  _address = value!;
+                  _adress = value!;
                 },
               ),
               Padding(

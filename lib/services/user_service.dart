@@ -97,4 +97,29 @@ class UserService extends GetxService {
         //updating the user details maybe changed in flutterfire profile screen
         .then((value) => getUserProfile());
   }
+
+  void showPhoneScreenDialog() {
+    Get.dialog(
+      useSafeArea: true,
+      Padding(
+        padding: const EdgeInsets.fromLTRB(8, 20, 8, 10),
+        child: Card(
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(32.0),
+          ),
+          child: const PhoneInput(
+              // appBar: AppBar(),
+              // actions: [
+              //   SignedOutAction((context) {
+              //     Get.back();
+              //   }),
+              // ],
+              ),
+        ),
+      ),
+    )
+        //updating the user details maybe changed in flutterfire profile screen
+        .then((value) => getUserProfile());
+  }
 }

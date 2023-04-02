@@ -3,8 +3,8 @@ import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_gpt/models/payment.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart' as stripe;
-import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -56,12 +56,12 @@ class StripeService extends GetxService {
       var response = await http.post(
         Uri.parse('https://api.stripe.com/v1/payment_intents'),
         headers: {
-          'Authorization': 'Bearer ${Stripe.publishableKey}',
+          'Authorization': 'Bearer ${dotenv.env["StripeSk"]}',
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: body,
       );
-      // ignore: avoid_dev.log
+
       dev.log('Payment Intent Body->>> ${response.body.toString()}');
       return jsonDecode(response.body);
     } catch (err) {

@@ -34,55 +34,59 @@ class MealDetailScreen extends StatelessWidget {
         children: [
           SizedBox(
             height: 300,
-            width: double.infinity,
+            width: Get.width,
             child: Stack(
-              fit: StackFit.loose,
-              alignment: AlignmentDirectional.bottomCenter,
+              fit: StackFit.expand,
+              alignment: AlignmentDirectional.topCenter,
               children: [
                 Image.network(
                   meal.imageUrl,
                   fit: BoxFit.cover,
+                  width: Get.width,
                 ),
-                Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(40.0),
-                      topRight: Radius.circular(40.0),
-                    ),
-                  ),
-                  // height: 20,
-                  // padding:
-                  //     const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 15),
-                        child: Text(
-                          '${meal.price} \$',
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    height: 50,
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(40.0),
+                        topRight: Radius.circular(40.0),
                       ),
-                      RatingBar.builder(
-                        itemSize: 20,
-                        initialRating: meal.ratings,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemPadding:
-                            const EdgeInsets.symmetric(horizontal: 4.0),
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: Colors.amber,
+                    ),
+                    // height: 20,
+                    // padding:
+                    //     const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 20),
+                          child: Text(
+                            '${meal.price} \$',
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
                         ),
-                        onRatingUpdate: (rating) {},
-                      )
-                    ],
+                        RatingBar.builder(
+                          itemSize: 20,
+                          initialRating: meal.ratings,
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemPadding:
+                              const EdgeInsets.symmetric(horizontal: 4.0),
+                          itemBuilder: (context, _) => const Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          onRatingUpdate: (rating) {},
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -110,10 +114,10 @@ class MealDetailScreen extends StatelessWidget {
                 const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(40.0),
+                topLeft: Radius.circular(40.0),
                 topRight: Radius.circular(40.0),
               ),
-              color: Theme.of(context).colorScheme.onInverseSurface,
+              color: Theme.of(context).colorScheme.primaryContainer,
             ),
             child: Padding(
               padding: const EdgeInsets.all(8),
@@ -169,14 +173,21 @@ class MealDetailScreen extends StatelessWidget {
                   const SizedBox(width: 16),
                   Expanded(
                     child: FloatingActionButton(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
                         onPressed: () {
                           // Add the selected meal to the cart with the selected quantity
                           cartController.addToCart(
                               CartItem(meal: meal, quantity: quantity.value));
                           Get.back();
                         },
-                        child: const Text(
+                        child: Text(
                           'Add to Cart',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary),
                         )),
                   ),
                 ],
